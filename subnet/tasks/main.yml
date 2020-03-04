@@ -1,0 +1,15 @@
+---
+- name: Creating {{subnet_name}} subnet
+  ec2_vpc_subnet:
+        state: present
+        vpc_id: "{{ vpc.vpc.id }}"
+        region: "{{region}}"
+        az: "{{subnet_az}}"
+        cidr: "{{cidr_block}}"
+        resource_tags: 
+          Name: "{{subnet_name}}"
+          Environment: "{{subnet_env}}"
+  register: output
+- set_fact:
+    vpc_info: "{{ vpc_info | combine({ subnet_key: output}) }}"
+

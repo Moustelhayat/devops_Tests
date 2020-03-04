@@ -1,0 +1,9 @@
+---
+- name: Create new NAT gateway
+  ec2_vpc_nat_gateway:
+    state: present
+    subnet_id: "{{ vpc_info.lb1_subnet.subnet.id }}"
+    wait: yes
+    region: "{{region}}"
+    if_exist_do_not_create: true
+  register: new_nat_gateway
